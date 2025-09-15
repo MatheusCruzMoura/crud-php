@@ -22,13 +22,15 @@
 
 <body>
     <div class="container-fluid row vh-100 p-0 m-0">
-        <?php include('pages/navbar.php') ?>
-        <?php include('pages/list.php') ?>
+        <?php
+        include('navbar.php');
+        include('list.php');
 
-        <?php include('pages/viewEscola.php') ?>
-        <?php include('pages/createEscola.php') ?>
-        <?php include('pages/editEscola.php') ?>
-        <?php include('pages/deleteEscola.php') ?>
+        include('viewEscola.php');
+        include('createEscola.php');
+        include('editEscola.php');
+        include('deleteEscola.php');
+        ?>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
