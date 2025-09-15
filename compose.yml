@@ -1,0 +1,23 @@
+services:
+  # php:
+  #   build: .
+  #   ports:
+  #     - "8084:80"
+
+  postgres:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: escolas123
+      POSTGRES_DB: escolas
+    ports:
+      - "5433:5432"
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data/
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8085:8080
