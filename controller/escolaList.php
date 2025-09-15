@@ -1,7 +1,7 @@
 <?php
 include('conexao.php');
 
-$query = "SELECT * FROM escolas";
+$query = "SELECT * FROM escolas WHERE delete IS false";
 
 $escolas = pg_query($conection, $query);
 if (!$escolas) {

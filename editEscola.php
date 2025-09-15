@@ -7,7 +7,7 @@
             </div>
 
             <div class="modal-body">
-                <form action="" method="">
+                <form action="" method="" id="formEditEscola">
                     <div class="mb-3">
                         <label for="nomeEscola" class="form-label">Nome</label>
                         <input type="text" class="form-control" id="nomeEscola"
@@ -27,7 +27,7 @@
                         </div>
                     </div>
                     <div class="d-flex justify-content-end">
-                        <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal" onclick="cancelarForm('formEditEscola')">Cancelar</button>
                         <button type="submit" class="btn btn-primary">Editar</button>
                     </div>
                 </form>

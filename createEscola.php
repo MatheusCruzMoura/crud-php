@@ -7,26 +7,29 @@
             </div>
 
             <div class="modal-body">
-                <form action="" method="">
+                <form action="/controller/escolaSave.php" method="post" enctype="multipart/form-data" id="formCadastroEscola">
                     <div class="mb-3">
                         <label for="nomeEscola" class="form-label">Nome</label>
-                        <input type="text" class="form-control" id="nomeEscola">
+                        <input required type="text" name="nome" class="form-control" id="nomeEscola">
                     </div>
                     <div class="mb-3">
                         <label for="cnpjEscola" class="form-label">CNPJ</label>
-                        <input type="text" class="form-control" id="cnpjEscola">
+                        <input required type="text" name="cnpj" class="form-control" id="cnpjEscola">
                     </div>
                     <div class="mb-3">
                         <label for="imgEscola" class="form-label">Imagem</label>
-                        <input type="file" class="form-control" id="imgEscola" accept="image/*"
+                        <input required type="file" name="imagem" class="form-control" id="imgEscola" accept="image/*"
                             onchange="document.getElementById('imgEscolaView').src = window.URL.createObjectURL(this.files[0])">
                         <div class="col-12 d-flex justify-content-center">
                             <img class="rounded-3 col-5 mt-3" id="imgEscolaView">
                         </div>
                     </div>
 
+                    <?php
+                    include('controller/escolaSave.php');
+                    ?>
                     <div class="d-flex justify-content-end">
-                        <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-secondary me-2" onclick="cancelarForm('formCadastroEscola')" data-bs-dismiss="modal">Cancelar</button>
                         <button type="submit" class="btn btn-primary">Cadastrar</button>
                     </div>
                 </form>

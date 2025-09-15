@@ -38,4 +38,19 @@
         crossorigin="anonymous"></script>
 </body>
 
+<script>
+    function cancelarForm(formId) {
+        inputs = document.getElementById(formId).getElementsByTagName('input');
+
+        for (i = 0; i < inputs.length; i++) {
+            inputs[i].value = null;
+            if (inputs[i].type != 'file') {
+                inputs[i].files = undefined;
+                if (formId == "formCadastroEscola") document.getElementById('imgEscolaView').src = '';
+                if (formId == "formEditEscola") document.getElementById('editImgEscolaView').src = '';
+            };
+        }
+    }
+</script>
+
 </html>

@@ -5,7 +5,7 @@
 
     <ul class="list-group list-group-flush">
         <?php
-        include('controller/escolaController.php');
+        include('controller/escolaList.php');
 
         while ($escola = pg_fetch_assoc($escolas)) {
             echo "
