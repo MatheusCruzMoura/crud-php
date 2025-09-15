@@ -7,12 +7,9 @@
             </div>
 
             <div class="modal-body d-flex flex-column mb-3">
-                <img src="https://consed.org.br/storage/cache/news_760x470/media/image/news/5d8515681bd60.jpg"
-                    class="rounded-3" alt="...">
-                <h5 class="py-3">
-                    Escola de Referência em Ensino Médio Pastor José Florêncio Rodrigues
-                </h5>
-                <h6 class="">CNPJ: 77.614.997/0001-02</h6>
+                <img class="rounded-3 imgViewEscola" alt="..." id="viewImagem">
+                <h5 class="py-3 tituloNomeEscola" id="viewNome"></h5>
+                <h6 class="cnpj tituloCnpj" id="viewCnpj"></h6>
             </div>
         </div>
     </div>

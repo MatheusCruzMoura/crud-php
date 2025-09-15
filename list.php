@@ -16,7 +16,7 @@
                     <h5 class='col-4 two-lines-ellipsis' style='max-width: 340px;'>" . $escola['nome'] . "</h5>
                     <h5 class='col-2'>" . $escola['cnpj'] . "</h5>
                     <div class='col-3'>
-                        <button type='button' class='btn btn-outline-primary' data-bs-toggle='modal' data-bs-target='#modalViewEscola'>
+                        <button type='button' class='btn btn-outline-primary' data-bs-toggle='modal' data-bs-target='#modalViewEscola' onclick='passarDados(" . json_encode($escola) . ")'>
                             <i class='bi bi-eye'></i></button>
                         <button type='button' class='btn btn-outline-warning mx-3' data-bs-toggle='modal' data-bs-target='#modalEditEscola'>
                             <i class='bi bi-pencil'></i></button>
@@ -29,3 +29,11 @@
         ?>
     </ul>
 </list>
+
+<script>
+    function passarDados(data) {
+        document.querySelector(".tituloNomeEscola").textContent = data.nome;
+        document.querySelector(".tituloCnpj").textContent = "CNPJ: " + data.cnpj;
+        document.querySelector(".imgViewEscola").src = data.imagem;
+    }
+</script>

@@ -7,7 +7,7 @@
             </div>
 
             <div class="modal-body">
-                <form action="" method="" id="formEditEscola">
+                <form action="" method="" id="formEditEscola" enctype="multipart/form-data">
                     <div class="mb-3">
                         <label for="nomeEscola" class="form-label">Nome</label>
                         <input type="text" class="form-control" id="nomeEscola"
