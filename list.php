@@ -20,7 +20,7 @@
                             <i class='bi bi-eye'></i></button>
                         <button type='button' class='btn btn-outline-warning mx-3' data-bs-toggle='modal' data-bs-target='#modalEditEscola' onclick='passarDadosEditar(" . json_encode($escola) . ")'>
                             <i class='bi bi-pencil'></i></button>
-                        <button type='button' class='btn btn-outline-danger' data-bs-toggle='modal' data-bs-target='#modalDeleteEscola'>
+                        <button type='button' class='btn btn-outline-danger' data-bs-toggle='modal' data-bs-target='#modalDeleteEscola' onclick='passarIdApgar(" . json_encode($escola['id']) . ")'>
                             <i class='bi bi-trash'></i></button>
                     </div>
                 </div>
@@ -44,5 +44,9 @@
 
         document.querySelector("input#imagemEscolaEdit").placeholder = data.imagem;
         document.querySelector("img#editImgEscolaView").src = data.imagem;
+    }
+
+    function passarIdApgar(id) {
+        document.querySelector("input#idEscolaDel").value = id;
     }
 </script>

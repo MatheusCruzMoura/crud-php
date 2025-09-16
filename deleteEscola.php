@@ -13,11 +13,14 @@
                     Escola de Referência em Ensino Médio Pastor José Florêncio Rodrigues
                 </h5>
                 <h6 class="">CNPJ: 77.614.997/0001-02</h6>
-                <form action="" method="">
-                    <div class="d-flex justify-content-end">
-                        <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-danger">Apagar</button>
-                    </div>
+
+                <form action="/controller/escolaDelete.php" method="post">
+                    <input type="hidden" name="id" id="idEscolaDel">
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-end">
+                            <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-danger">Apagar</button>
+                        </div>
                 </form>
             </div>
         </div>
