@@ -7,23 +7,23 @@
             </div>
 
             <div class="modal-body">
-                <form action="" method="" id="formEditEscola" enctype="multipart/form-data">
+                <form action="/controller/escolaEdit.php" method="post" id="formEditEscola" enctype="multipart/form-data">
+                    <input type="hidden" name="id" id="idEscolaEdit">
                     <div class="mb-3">
-                        <label for="nomeEscola" class="form-label">Nome</label>
-                        <input type="text" class="form-control" id="nomeEscola"
-                            value="Escola de Referência em Ensino Médio Pastor José Florêncio Rodrigues">
+                        <label for="nomeEscolaEdit" class="form-label">Nome</label>
+                        <input type="text" name="nome" class="form-control" id="nomeEscolaEdit">
                     </div>
                     <div class="mb-3">
-                        <label for="cnpjEscola" class="form-label">CNPJ</label>
-                        <input type="text" class="form-control" id="cnpjEscola"
-                            value="77.614.997/0001-02">
+                        <label for="cnpjEscolaEdit" class="form-label">CNPJ</label>
+                        <input type="text" name="cnpj" class="form-control" id="cnpjEscolaEdit">
                     </div>
                     <div class="mb-3">
-                        <label for="imgEditEscola" class="form-label">Imagem</label>
-                        <input type="file" class="form-control" id="imgEditEscola" accept="image/*"
-                            onchange="document.getElementById('editImgEscolaView').src = window.URL.createObjectURL(this.files[0])">
+                        <label for="imagemEscolaEdit" class="form-label">Imagem</label>
+                        <input type="file" name="imagem" class="form-control" id="imagemEscolaEdit" accept="image/*"
+                            onchange="inputImgChange()">
+                        <button type="button" class="btn btn-danger position-absolute mt-2" id="limparImg" style="display: none;" onclick="limparInputImg()"><i class="bi bi-x-lg"></i></button>
                         <div class="col-12 d-flex justify-content-center">
-                            <img src="https://consed.org.br/storage/cache/news_760x470/media/image/news/5d8515681bd60.jpg" class="rounded-3 col-5 mt-3" id="editImgEscolaView">
+                            <img class="rounded-3 col-5 mt-3" id="editImgEscolaView">
                         </div>
                     </div>
                     <div class="d-flex justify-content-end">
@@ -35,3 +35,20 @@
         </div>
     </div>
 </div>
+
+<script>
+    function inputImgChange() {
+        inputImg = document.getElementById('imagemEscolaEdit');
+        document.getElementById('editImgEscolaView').src = window.URL.createObjectURL(inputImg.files[0]);
+        document.getElementById("limparImg").style.display = "block";
+    }
+
+    function limparInputImg() {
+        inputImg = document.getElementById('imagemEscolaEdit');
+        inputImg.value = null;
+        inputImg.files[0] = undefined;
+        document.querySelector("img#editImgEscolaView").src = '';
+
+        document.getElementById("limparImg").style.display = "none";
+    }
+</script>

@@ -18,7 +18,7 @@
                     <div class='col-3'>
                         <button type='button' class='btn btn-outline-primary' data-bs-toggle='modal' data-bs-target='#modalViewEscola' onclick='passarDados(" . json_encode($escola) . ")'>
                             <i class='bi bi-eye'></i></button>
-                        <button type='button' class='btn btn-outline-warning mx-3' data-bs-toggle='modal' data-bs-target='#modalEditEscola'>
+                        <button type='button' class='btn btn-outline-warning mx-3' data-bs-toggle='modal' data-bs-target='#modalEditEscola' onclick='passarDadosEditar(" . json_encode($escola) . ")'>
                             <i class='bi bi-pencil'></i></button>
                         <button type='button' class='btn btn-outline-danger' data-bs-toggle='modal' data-bs-target='#modalDeleteEscola'>
                             <i class='bi bi-trash'></i></button>
@@ -35,5 +35,14 @@
         document.querySelector(".tituloNomeEscola").textContent = data.nome;
         document.querySelector(".tituloCnpj").textContent = "CNPJ: " + data.cnpj;
         document.querySelector(".imgViewEscola").src = data.imagem;
+    }
+
+    function passarDadosEditar(data) {
+        document.querySelector("input#idEscolaEdit").value = data.id;
+        document.querySelector("input#nomeEscolaEdit").placeholder = data.nome;
+        document.querySelector("input#cnpjEscolaEdit").placeholder = data.cnpj;
+
+        document.querySelector("input#imagemEscolaEdit").placeholder = data.imagem;
+        document.querySelector("img#editImgEscolaView").src = data.imagem;
     }
 </script>
