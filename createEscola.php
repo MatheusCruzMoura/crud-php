@@ -8,6 +8,8 @@
 
             <div class="modal-body">
                 <form action="/controller/escolaSave.php" method="post" enctype="multipart/form-data" id="formCadastroEscola">
+                    <input type="hidden" name="userIp" id="userIp">
+                    <input type="hidden" name="dataHora" id="dataHora">
                     <div class="mb-3">
                         <label for="nomeEscola" class="form-label">Nome</label>
                         <input required type="text" name="nome" class="form-control" id="nomeEscola">
@@ -37,3 +39,16 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.getElementById("dataHora").value = new Date().toISOString();
+
+    fetch('https://api.ipify.org?format=json')
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById("userIp").value = data.ip;
+        })
+        .catch(error => {
+            console.error('Error fetching IP address:', error);
+        });
+</script>

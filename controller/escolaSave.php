@@ -4,6 +4,8 @@ include('conexao.php');
 $nome = $_POST["nome"];
 $cnpj = $_POST["cnpj"];
 $imagem = $_FILES['imagem'];
+$userIp = $_POST["userIp"];
+$dataHora = $_POST["dataHora"];
 
 $upload_dir = $_SERVER['DOCUMENT_ROOT'] . 'uploads/images/';
 
@@ -24,22 +26,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $imagem["tmp_name"],
             $upload_dir . $imagem["name"]
         )) {
-            echo "Imagem salva com sucesso!";
+            echo "Imagem salva com sucesso!<br>";
 
-            $query = "INSERT INTO escolas (nome, cnpj, imagem) VALUES ('$nome', '$cnpj', '/uploads/images/" . $imagem["name"] . "')";
+            $imgUrl = "/uploads/images/" . $imagem["name"];
+            $query = "INSERT INTO escolas (nome, cnpj, imagem) VALUES ('$nome', '$cnpj', '$imgUrl') RETURNING id";
 
             $resultado = pg_query($conection, $query);
 
-            if ($resultado) {
-                echo "Escola cadastrada com sucesso!";
+            if (!$resultado) {
+                echo "Erro ao cadastrar escola.<br>";
+                echo pg_last_error($conection);
             } else {
-                echo "Erro ao cadastrar escola.";
+                echo "Escola cadastrada com sucesso!";
+                $queryAuditoria = "INSERT INTO auditoria_escolas (escola_id, nome, cnpj, imagem, user_ip, data_hora) VALUES ('" . pg_fetch_array($resultado)['id'] . "', '$nome', '$cnpj', '$imgUrl', '$userIp', '$dataHora')";
+
+                $resultadoAuditoria = pg_query($conection, $queryAuditoria);
+                if (!$resultadoAuditoria) {
+                    echo "Erro ao cadastrar auditoria da escola.<br>";
+                    echo pg_last_error($conection);
+                } else {
+                    echo "Auditoria da escola cadastrada com sucesso!";
+                    header("Location: http://localhost/");
+                }
             }
 
             pg_close($conection) or
                 die('Não foi possível se desconectar!');
-
-            header("Location: http://localhost/");
         } else {
             echo "Erro ao mover a imagem!";
         }

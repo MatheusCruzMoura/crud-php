@@ -3,7 +3,7 @@
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalCreateEscola">
         <i class="bi bi-plus"></i> Adicionar Escola</button>
 
-    <ul class="list-group list-group-flush">
+    <ul class="list-group list-group-flush mt-3">
         <?php
         include('controller/escolaList.php');
 
