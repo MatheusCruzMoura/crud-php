@@ -27,9 +27,6 @@
                         </div>
                     </div>
 
-                    <?php
-                    include('controller/escolaSave.php');
-                    ?>
                     <div class="d-flex justify-content-end">
                         <button type="button" class="btn btn-secondary me-2" onclick="cancelarForm('formCadastroEscola')" data-bs-dismiss="modal">Cancelar</button>
                         <button type="submit" class="btn btn-primary">Cadastrar</button>

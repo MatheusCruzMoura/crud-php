@@ -6,11 +6,13 @@ $userIp = $_POST["userIp"];
 $dataHora = $_POST["dataHora"];
 
 $query = "UPDATE escolas SET delete = true WHERE id = $id RETURNING nome, cnpj, imagem, delete";
+$erro = '';
+$sucesso = '';
 
 $resultado = pg_query($conection, $query);
 
 if ($resultado) {
-    echo "Escola apagada com sucesso!<br>";
+    $sucesso = "Escola apagada com sucesso!<br>";
 
     $result = pg_fetch_array($resultado);
     $camposAudit = array();
@@ -28,19 +30,16 @@ if ($resultado) {
     }
 
     $queryAuditoria = "INSERT INTO auditoria_escolas (" . implode(", ", ($keysAudit)) . ") VALUES (" . implode(", ", $camposAudit)  . ")";
-    echo $queryAuditoria;
 
     $resultadoAuditoria = pg_query($conection, $queryAuditoria);
 
     if (!$resultadoAuditoria) {
-        echo "Erro ao cadastrar auditoria da escola.<br>";
-        echo pg_last_error($conection);
+        $erro = pg_last_error($conection);
     } else {
-        echo "Auditoria da escola cadastrada com sucesso!";
-        header("Location: http://localhost/");
+        header("Location: ../index.php");
     }
 } else {
-    echo "Erro ao apagar escola.";
+    $erro = "Erro ao apagar escola.";
 }
 
 pg_close($conection) or

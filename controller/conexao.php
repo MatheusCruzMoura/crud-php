@@ -1,9 +1,9 @@
 <?php
 
-$host = "localhost";
+$host = "postgres";
 $user = "admin";
 $password = "escolas123";
-$port = "5433";
+$port = "5432";
 $dbname = "escolas";
 
 $con_string = "host=$host port=$port dbname=$dbname user=$user password=$password";

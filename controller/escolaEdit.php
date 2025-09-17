@@ -8,7 +8,9 @@ $imagem = $_FILES['imagem'];
 $userIp = $_POST["userIp"];
 $dataHora = $_POST["dataHora"];
 
-$upload_dir = $_SERVER['DOCUMENT_ROOT'] . 'uploads/images/';
+$upload_dir = $_SERVER['DOCUMENT_ROOT'] . '/uploads/images/';
+$erro = '';
+$sucesso = '';
 
 $campos = array();
 
@@ -22,11 +24,11 @@ if ($cnpj) {
 
 if ($imagem['error'] != 4) {
     if (!is_dir($upload_dir)) {
-        echo 'Upload directory does not exist.';
+        $erro = 'Upload directory does not exist.';
     }
 
     if (!is_writable($upload_dir)) {
-        echo 'Upload directory is not writable.';
+        $erro = 'Upload directory is not writable.';
     }
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -38,13 +40,13 @@ if ($imagem['error'] != 4) {
                 $imagem["tmp_name"],
                 $upload_dir . $imagem["name"]
             )) {
-                echo "Imagem salva com sucesso!<br>";
+                $sucesso = "Imagem salva com sucesso!";
                 $campos["imagem"] = "/uploads/images/" . $imagem['name'];
             } else {
-                echo "Erro ao mover a imagem!";
+                $erro = "Erro ao mover a imagem!";
             }
         } else {
-            echo "Erro no envio da imagem!";
+            $erro = "Erro no envio da imagem!";
         }
     }
 }
@@ -64,7 +66,7 @@ $query = "UPDATE escolas SET " . implode(", ", $keys) . " WHERE id = $id RETURNI
 $resultado = pg_query($conection, $query);
 
 if ($resultado) {
-    echo "Dados da escola alterados com sucesso!<br>";
+    $sucesso = "Dados da escola alterados com sucesso!";
 
     $result = pg_fetch_array($resultado);
     $camposAudit = array();
@@ -86,14 +88,12 @@ if ($resultado) {
     $resultadoAuditoria = pg_query($conection, $queryAuditoria);
 
     if (!$resultadoAuditoria) {
-        echo "Erro ao cadastrar auditoria da escola.<br>";
-        echo pg_last_error($conection);
+        $erro = pg_last_error($conection);
     } else {
-        echo "Auditoria da escola cadastrada com sucesso!";
-        header("Location: http://localhost/");
+        header("Location: ../index.php");
     }
 } else {
-    echo "Erro ao alterar os dados da escola.";
+    $erro = "Erro ao alterar os dados da escola.";
 }
 
 pg_close($conection) or

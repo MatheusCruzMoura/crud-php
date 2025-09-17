@@ -1,8 +1,10 @@
 services:
-  # php:
-  #   build: .
-  #   ports:
-  #     - "8084:80"
+  php:
+    image: php-crud
+    ports:
+      - "8084:80"
+    volumes:
+      - php_crud_data:/var/www/html/
 
   postgres:
     image: postgres
@@ -24,3 +26,4 @@ services:
 
 volumes:
   postgres_data:
+  php_crud_data:
