@@ -9,6 +9,9 @@
             <div class="modal-body">
                 <form action="/controller/escolaEdit.php" method="post" id="formEditEscola" enctype="multipart/form-data">
                     <input type="hidden" name="id" id="idEscolaEdit">
+                    <input type="hidden" name="userIp" id="userIpEdit">
+                    <input type="hidden" name="dataHora" id="dataHoraEdit">
+
                     <div class="mb-3">
                         <label for="nomeEscolaEdit" class="form-label">Nome</label>
                         <input type="text" name="nome" class="form-control" id="nomeEscolaEdit">
@@ -37,6 +40,17 @@
 </div>
 
 <script>
+    document.getElementById("dataHoraEdit").value = new Date().toISOString();
+
+    fetch('https://api.ipify.org?format=json')
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById("userIpEdit").value = data.ip;
+        })
+        .catch(error => {
+            console.error('Error fetching IP address:', error);
+        });
+
     function inputImgChange() {
         inputImg = document.getElementById('imagemEscolaEdit');
         document.getElementById('editImgEscolaView').src = window.URL.createObjectURL(inputImg.files[0]);

@@ -5,6 +5,8 @@ $id = $_POST["id"];
 $nome = $_POST["nome"];
 $cnpj = $_POST["cnpj"];
 $imagem = $_FILES['imagem'];
+$userIp = $_POST["userIp"];
+$dataHora = $_POST["dataHora"];
 
 $upload_dir = $_SERVER['DOCUMENT_ROOT'] . 'uploads/images/';
 
@@ -45,8 +47,6 @@ if ($imagem['error'] != 4) {
             echo "Erro no envio da imagem!";
         }
     }
-} else {
-    echo "sem imagem";
 }
 
 $keys = array_keys($campos);
@@ -59,17 +59,42 @@ for ($i = 0; $i < count($keys); $i++) {
     $keys[$i] = '"' . $keys[$i] . '" = ' . $campos[$keys[$i]];
 }
 
-$query = "UPDATE escolas SET " . implode(", ", $keys) . " WHERE id = $id";
+$query = "UPDATE escolas SET " . implode(", ", $keys) . " WHERE id = $id RETURNING nome, cnpj, imagem, delete";
 
 $resultado = pg_query($conection, $query);
 
 if ($resultado) {
-    echo "Dados da escola alterados com sucesso!";
+    echo "Dados da escola alterados com sucesso!<br>";
+
+    $result = pg_fetch_array($resultado);
+    $camposAudit = array();
+    $camposAudit['nome'] = "'" . $result['nome'] . "'";
+    $camposAudit['cnpj'] = "'" . $result['cnpj'] . "'";
+    $camposAudit['imagem'] = "'" . $result['imagem'] . "'";
+    $camposAudit['delete'] = "'" . $result['delete'] . "'";
+    $camposAudit['user_ip'] = "'" . $userIp . "'";
+    $camposAudit['data_hora'] = "'" . $dataHora . "'";
+    $camposAudit['escola_id'] = $id;
+
+    $keysAudit = array_keys($camposAudit);
+    for ($i = 0; $i < count($keysAudit); $i++) {
+        $keysAudit[$i] = '"' . $keysAudit[$i] . '"';
+    }
+
+    $queryAuditoria = "INSERT INTO auditoria_escolas (" . implode(", ", ($keysAudit)) . ") VALUES (" . implode(", ", $camposAudit)  . ")";
+
+    $resultadoAuditoria = pg_query($conection, $queryAuditoria);
+
+    if (!$resultadoAuditoria) {
+        echo "Erro ao cadastrar auditoria da escola.<br>";
+        echo pg_last_error($conection);
+    } else {
+        echo "Auditoria da escola cadastrada com sucesso!";
+        header("Location: http://localhost/");
+    }
 } else {
     echo "Erro ao alterar os dados da escola.";
 }
 
 pg_close($conection) or
     die('Não foi possível se desconectar!');
-
-header("Location: http://localhost/");
