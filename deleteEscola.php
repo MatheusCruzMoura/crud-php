@@ -16,6 +16,9 @@
 
                 <form action="/controller/escolaDelete.php" method="post">
                     <input type="hidden" name="id" id="idEscolaDel">
+                    <input type="hidden" name="userIp" id="userIpDel">
+                    <input type="hidden" name="dataHora" id="dataHoraDel">
+
                     <div class="mb-3">
                         <div class="d-flex justify-content-end">
                             <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Cancelar</button>
@@ -26,3 +29,16 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.getElementById("dataHoraDel").value = new Date().toISOString();
+
+    fetch('https://api.ipify.org?format=json')
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById("userIpDel").value = data.ip;
+        })
+        .catch(error => {
+            console.error('Error fetching IP address:', error);
+        });
+</script>
